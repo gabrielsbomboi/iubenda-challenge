@@ -1,0 +1,77 @@
+body {
+  background: #f0f0f0;
+}
+
+.cs-container {
+  width: calc(100% - 100px);
+  height: 90%;
+  background: #fff;
+  border: solid 3px lightgray;
+  position: absolute;
+  left: 50px;
+  top: 5%;
+  border-radius: 15px;
+  min-width: 1000px;
+}
+
+.header {
+  padding: 20px;
+  font-size: 20px;
+  background: #eee;
+}
+
+.footer {
+  padding: 20px;
+  font-size: 20px;
+  background: #eee;
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 40px);
+  height: 30px;
+}
+
+.footer form {
+  float: right;
+}
+
+.footer button {
+  padding: 10px 20px;
+}
+
+.content {
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  height: calc(100% - 100px);
+}
+
+.sidebar {
+  padding: 20px;
+  width: 40%;
+  height: 100%;
+  border-right: solid 2px lightgray;
+  float: left;
+}
+
+.preview {
+  height: 100%;
+  padding: 20px;
+}
+
+.widget {
+  padding: 20px;
+  background: #eee;
+}
+
+.widget > span {
+  font-size: 16px;
+}
+
+.widget-content {
+
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

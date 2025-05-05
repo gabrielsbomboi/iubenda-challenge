@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="">
+  <title>CS Configurator</title>
+  <script src="./jquery.min.js"></script>
+  <link rel="stylesheet" href="./styles.css"/>
+</head>
+<body>
+<div class="cs-container">
+  <div class="header" style="font-family: Arial">Configure your Cookie Solution</div>
+  <div class="content">
+    <div class="sidebar">
+      <div class="widget">
+        <span><b>Target countries</b></span>
+        <br>
+        <br>
+        <div class="widget-content">
+          <input type="radio" name="targetCountries" value="world">
+          <span>Wordlwide</span>
+          &nbsp;&nbsp;
+          <input type="radio" name="targetCountries" value="US">
+          <span>US users only</span>
+
+          <input type="radio" name="targetCountries" value="EU">
+          <span>EU users only</span>
+        </div>
+      </div>
+      <br/>
+      <div class="widget">
+        <span><b>Legislation</b></span>
+        <br>
+        <br>
+        <div class="widget-content">
+          <input type="checkbox" name="gdpr">
+          <span>GDPR</span>
+          &nbsp;&nbsp;
+          <input type="checkbox" name="ccpa">
+          <span>CCPA</span>
+        </div>
+      </div>
+      <br/>
+      <div class="widget">
+        <span><b>Consent</b></span>
+        <br>
+        <br>
+        <div class="widget-content">
+          <input type="checkbox" name="consent-by-scroll">
+          <span>Consent by scroll</span>
+          &nbsp;&nbsp;
+          <input type="checkbox" name="per-purpose-consent">
+          <span>Per purpose consent</span>
+        </div>
+      </div>
+    </div>
+    <div class="preview">
+      <pre class="preview-json"></pre>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="/help" style="font-family: Arial; font-size: 13px">Read the documentation</a>
+    <form method="post" action="/" class="save-data">
+      <button>Save</button>
+    </form>
+  </div>
+</div>
+
+<script src="./script.js"></script>
+<script>
+  checkSections();
+  printConfig();
+</script>
+</body>
+</html>
