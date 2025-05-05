@@ -1,6 +1,10 @@
 @import 'normalize.css';
 
-/* :root {} */
+:root {
+    --primary-background-color: #eee;
+    --secondary-background-color: #fff;
+    --primary-border-color: #ccc;
+}
 
 html {
     box-sizing: border-box;
@@ -10,4 +14,23 @@ html {
     box-sizing: inherit;
 }
 
-/* #app {} */
+body {
+    background-color: var(--primary-background-color);
+    font-family: sans-serif;
+}
+
+#app {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+
+    @supports (min-height: 100dvh) {
+        min-height: 100dvh;
+    }
+
+    @media (min-width: 1025px) {
+        padding: 3.125rem;
+    }
+}
