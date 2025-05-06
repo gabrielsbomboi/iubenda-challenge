@@ -10,15 +10,15 @@ This project is a Vue 3 application implementing the Iubenda consent widget, usi
 ## Project Structure
 
 ```
-├─ legacy/                # Original HTML/CSS/JS reference implementation
-├─ src/                   # Vue 3 application source
+├─ legacy/               # Original HTML/CSS/JS reference implementation
+├─ src/                  # Vue 3 application source
 │  ├─ assets/            # Static assets (images, fonts)
 │  ├─ components/        # Vue Single File Components
 │  ├─ stores/            # Pinia stores
 │  ├─ configDefault.js   # Default config object
 │  └─ main.js            # App entry point (Vue + Pinia setup)
 │
-├─ .eslintrc.cjs         # ESLint configuration (flat-config may use eslint.config.js)
+├─ .eslintrc.cjs         # ESLint configuration (flat config)
 ├─ .stylelintrc.cjs      # Stylelint configuration for Sass and Vue
 ├─ index.html            # HTML entry point for Vite
 ├─ package.json          # npm scripts & dependency listing
@@ -27,21 +27,32 @@ This project is a Vue 3 application implementing the Iubenda consent widget, usi
 
 ## Install Dependencies
 
-Install both runtime and development packages with:
-
 ```bash
 npm install
 ```
 
-This command installs:
+## Set up and Run the Application
 
-* **vue**: Vue 3 framework
-* **pinia**: State management library
-* **axios**: Promise-based HTTP client
-* **sass**: Dart Sass compiler for `.scss`
-* **eslint** & **eslint-plugin-vue**: JavaScript/Vue linter
-* **@eslint/js** & **globals**: Core ESLint rules and browser globals
-* **stylelint**, **stylelint-config-standard-scss**, **stylelint-config-recommended-vue**, **stylelint-scss**, **postcss-scss**, **postcss-html**: Stylelint and plugins for SCSS and Vue SFCs
+1. Install dependencies (`npm install`).
+2. Start development server:
+
+   ```bash
+   npm run dev
+   ```
+3. Build for production:
+
+   ```bash
+   npm run build
+   ```
+4. Preview the optimized bundle:
+
+   ```bash
+   npm run preview
+   ```
+
+## Tests
+
+
 
 ## Available Scripts
 
@@ -81,20 +92,43 @@ npm run lint:css:fix
 
 ## JavaScript & Vue Linting
 
-**ESLint** configuration resides in **`eslint.config.js`** (flat config), built with `defineConfig`, extending `@eslint/js` recommended JS rules and Vue 3’s flat-recommended ruleset from `eslint-plugin-vue`, and using browser globals via `globals.browser`.
+**ESLint** configuration resides in **`eslint.config.js`** (flat config), built with `defineConfig`, extending **`@eslint/js`** recommended JS rules and **Vue 3’s flat-recommended** ruleset from `eslint-plugin-vue`, and using browser globals via `globals.browser`.
 
 Run:
 
 ```bash
-npm run lint
-npm run lint:fix
+npm run lint:js
+npm run lint:js:fix
 ```
 
 ## State Storage
 
-The following Pinia stores are defined in `src/stores`:
+The following stores are defined in `src/stores`:
 
-* **`config.js`** (`useConfigStore`) – Manages the consent widget configuration, with the following methods:
+* **`config.js`** (`useConfigStore`) – Manages the consent widget configuration, with methods:
+    * `resetConfig()` – Restore defaults from `configDefault.js`.
+    * Getters: `isNonCompliantForItaly`, `isNonCompliantForFrance`, `isNonCompliantForItalyAndFrance` to detect legal compliance.
 
-  * `updateConfig(newConfig)` – Merge updates into the existing config object.
-  * `resetConfig()` – Restore defaults from `configDefault.js`.
+## Design Decisions
+
+* **Vite** for fast dev server and optimized production bundles.
+* **Pinia** as centralized state management with flat store actions and getters.
+* **ESLint flat config** and **Stylelint** for code quality.
+* **CSS custom properties** mixed with **Sass** for theming.
+
+## Suggested Improvements
+
+* Add **E2E tests** (Cypress).
+* Fetch the default configuration from the backend.
+* Improve **accessibility** (ARIA roles, focus management).
+* Implement **internationalization** (i18n) for messages.
+* Extract core application logic from `App.vue` into a standalone composable/s and/or components for better scalability and maintainability.
+* Persist the configuration settings to `localStorage`.
+
+## Time Spent & Future Work
+
+I spent approximately **6 hours** building this POC. Given more time, I would consider:
+
+* Enhance the UI’s accessibility and better mobile responsiveness.
+* Integrate a CI pipeline for linting, testing, and deployment.
+* Extract core application logic from App.vue into a standalone composable/s and/or components for better scalability and maintainability.
