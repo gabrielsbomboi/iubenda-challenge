@@ -1,7 +1,7 @@
 <script setup>
 // Dependencies
-import { ref } from 'vue'
 import { useConfigStore } from '@/stores/config'
+import { useSubmit } from '@/composables/useSubmit'
 
 // Components
 import AppButton from '@/components/AppButton.vue'
@@ -11,12 +11,16 @@ import WidgetLegislation from '@/components/WidgetLegislation.vue'
 import WidgetTargetCountries from '@/components/WidgetTargetCountries.vue'
 
 // Data
-const busy = ref(false)
 const configStore = useConfigStore()
+const { isSubmitting, submit } = useSubmit()
 
 // Methods
 function onReset() {
     configStore.resetConfig()
+}
+
+function onSubmit() {
+    submit(configStore.config)
 }
 </script>
 
@@ -31,9 +35,9 @@ function onReset() {
 
         <main class="wizard__body">
             <aside class="wizard__aside">
-                <WidgetTargetCountries />
-                <WidgetLegislation />
-                <WidgetConsent />
+                <WidgetTargetCountries :disabled="isSubmitting" />
+                <WidgetLegislation :disabled="isSubmitting" />
+                <WidgetConsent :disabled="isSubmitting" />
             </aside>
 
             <section class="wizard__preview">
@@ -51,14 +55,15 @@ function onReset() {
 
             <div class="wizard__actions">
                 <AppButton
+                    :disabled="isSubmitting"
                     label="Reset"
-                    :disabled="busy"
                     @click="onReset"
                 />
 
                 <AppButton
+                    :loading="isSubmitting"
                     label="Save"
-                    :loading="busy"
+                    @click="onSubmit"
                 />
             </div>
         </footer>
@@ -74,11 +79,11 @@ function onReset() {
     grid-template-rows: 5rem auto 5rem;
     grid-template-columns: 1fr;
     width: 100%;
-    background-color: var(--secondary-background-color);
+    background-color: var(--primary-color);
 
     @media (min-width: 1025px) {
         max-width: 1720px;
-        border: 0.125rem solid var(--primary-border-color);
+        border: 0.125rem solid var(--tertiary-color);
         border-radius: 1rem;
 
         &__header {
@@ -99,7 +104,7 @@ function onReset() {
 
     &__header,
     &__footer {
-        background-color: var(--primary-background-color);
+        background-color: var(--secondary-color);
     }
 
     &__header {
@@ -132,7 +137,7 @@ function onReset() {
     }
 
     &__preview {
-        border: solid var(--primary-background-color);
+        border: solid var(--secondary-color);
         border-width: 0.125rem 0 0 0;
 
         @media (min-width: 1279px) {

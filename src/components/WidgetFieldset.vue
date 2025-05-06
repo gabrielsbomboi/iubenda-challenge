@@ -1,12 +1,16 @@
 <script setup>
 // Data
 defineProps({
+    disabled: { type: Boolean, required: false, default: false },
     title: { type: String, required: true }
 })
 </script>
 
 <template>
-    <fieldset class="widget">
+    <fieldset
+        :disabled="disabled"
+        class="widget"
+    >
         <legend>{{ title }}</legend>
 
         <div class="widget__content">
@@ -23,7 +27,7 @@ defineProps({
     gap: 1rem;
     padding: 1rem;
     border-radius: 0.125rem;
-    background-color: var(--primary-background-color);
+    background-color: var(--secondary-color);
 
     legend {
         all: unset;

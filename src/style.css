@@ -1,9 +1,11 @@
 @import 'normalize.css';
 
 :root {
-    --primary-background-color: #eee;
-    --secondary-background-color: #fff;
-    --primary-border-color: #ccc;
+    /* Colors */
+    --primary-color: #fff;
+    --secondary-color: #eee;
+    --tertiary-color: #ccc;
+    --app-font-color: #0c0c0c;
 }
 
 html {
@@ -15,7 +17,8 @@ html {
 }
 
 body {
-    background-color: var(--primary-background-color);
+    background-color: var(--secondary-color);
+    color: var(--app-font-color);
     font-family: sans-serif;
 }
 
