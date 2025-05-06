@@ -8,7 +8,7 @@ import defaultConfig from '@/defaultConfig.js'
  * Encapsulates the config submission logic.
  */
 export function useConfigSubmission() {
-    const baseUrl = ''
+    const baseUrl = '' // TBD: configure the "real" base URL
     const store = useConfigStore()
     const isSubmitting = ref(false)
     const error = ref(null)
@@ -24,7 +24,7 @@ export function useConfigSubmission() {
                 return
             }
 
-            await axios.post(`${baseUrl}/config`, payload)
+            await axios.post(`${baseUrl}/config`, payload) // TBD: configure the "real" endpoint | patch?
 
             success.value = true
         } catch (err) {

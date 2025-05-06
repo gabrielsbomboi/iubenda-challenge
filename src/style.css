@@ -1,6 +1,9 @@
 @import 'normalize.css';
 
 :root {
+    /* Baselines */
+    --app-padding: 1.25rem;
+
     /* Colors */
     --primary-color: #fff;
     --secondary-color: #eee;
@@ -23,12 +26,11 @@ body {
 }
 
 #app {
-    width: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.25rem;
+    gap: var(--app-padding);
     width: 100%;
     min-height: 100vh;
     margin: 0 auto;
@@ -37,7 +39,7 @@ body {
         min-height: 100dvh;
     }
 
-    @media (min-width: 1025px) {
+    @media (width >= 1025px) {
         max-width: 1720px;
         padding: 3.125rem;
     }

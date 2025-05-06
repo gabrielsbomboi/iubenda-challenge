@@ -40,9 +40,9 @@ defineProps({
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: auto;
-        grid-gap: 1.25rem;
+        grid-gap: var(--app-padding);
 
-        @media (min-width: 768px) {
+        @media (width >= 768px) {
             grid-template-columns: repeat(3, 1fr);
         }
     }

@@ -48,9 +48,9 @@ const icon = computed(() => {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 1.25rem;
+    gap: var(--app-padding);
     width: 100%;
-    padding: 1.25rem;
+    padding: var(--app-padding);
     background-color: var(--background-color);
     border: 0.125rem solid var(--border-color);
     border-radius: 0.5rem;

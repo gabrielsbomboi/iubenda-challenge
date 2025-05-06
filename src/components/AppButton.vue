@@ -95,16 +95,6 @@ defineProps({
         }
     }
 
-    &:hover {
-        border-color: var(--button-border-color-hover);
-        background-color: var(--button-background-color-hover);
-        cursor: pointer;
-
-        .button__label {
-            color: var(--button-font-color-hover);
-        }
-    }
-
     &--loading {
         pointer-events: none;
 
@@ -124,6 +114,18 @@ defineProps({
 
         .button__label {
             color: var(--button-font-color-disabled);
+        }
+    }
+
+    @media (width >= 1025px) {
+        &:hover {
+            border-color: var(--button-border-color-hover);
+            background-color: var(--button-background-color-hover);
+            cursor: pointer;
+
+            .button__label {
+                color: var(--button-font-color-hover);
+            }
         }
     }
 }
