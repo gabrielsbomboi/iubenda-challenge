@@ -6,6 +6,11 @@
   "engines": {
     "node": ">=20.0.0"
   },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not IE 11"
+  ],
   "scripts": {
     "dev": "vite --port 3000",
     "build": "vite build",

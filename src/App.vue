@@ -6,7 +6,7 @@ import { useConfigSubmission } from '@/composables/useConfigSubmission'
 
 // Components
 import AppButton from '@/components/AppButton.vue'
-import NotificationError from '@/components/NotificationError.vue'
+import NotificationInline from '@/components/NotificationInline.vue'
 import PreviewJson from '@/components/PreviewJson.vue'
 import WidgetBanner from '@/components/WidgetBanner.vue'
 import WidgetConsent from '@/components/WidgetConsent.vue'
@@ -15,7 +15,7 @@ import WidgetTargetCountries from '@/components/WidgetTargetCountries.vue'
 
 // Data
 const configStore = useConfigStore()
-const { error, isSubmitting, submit } = useConfigSubmission()
+const { error, isSubmitting, submit, success } = useConfigSubmission()
 const lastSavedConfig = ref(JSON.stringify(configStore.config))
 
 // Computed data
@@ -23,14 +23,33 @@ const isDirty = computed(() =>
     !(JSON.stringify(configStore.config) !== lastSavedConfig.value)
 )
 
+const complianceMessage = computed(() => {
+    if (configStore.isNonCompliantForItaly) {
+        return 'Your selected settings are not compliant with laws in Italy.'
+    }
+
+    if (configStore.isNonCompliantForFrance) {
+        return 'Your selected settings are not compliant with laws in France.'
+    }
+
+    if (configStore.isNonCompliantForItalyAndFrance) {
+        return 'Your selected settings are not compliant with laws in France and Italy.'
+    }
+
+    return null
+})
+
 // Methods
 function onReset() {
     configStore.resetConfig()
     error.value = null
+    success.value = null
     lastSavedConfig.value = JSON.stringify(configStore.config)
 }
 
 async function onSubmit() {
+    error.value = null
+    success.value = null
     await submit(configStore.config)
     lastSavedConfig.value = JSON.stringify(configStore.config)
 }
@@ -47,16 +66,22 @@ async function onSubmit() {
         </header>
 
         <main class="wizard__body">
-            <aside class="wizard__aside">
+            <section class="wizard__control-panel">
+                <NotificationInline
+                    v-if="complianceMessage"
+                    :message="complianceMessage"
+                    type="warning"
+                />
+
                 <WidgetTargetCountries :disabled="isSubmitting" />
                 <WidgetLegislation :disabled="isSubmitting" />
                 <WidgetConsent :disabled="isSubmitting" />
                 <WidgetBanner :disabled="isSubmitting" />
-            </aside>
-
-            <section class="wizard__preview">
-                <PreviewJson />
             </section>
+
+            <output class="wizard__preview">
+                <PreviewJson />
+            </output>
         </main>
 
         <footer class="wizard__footer">
@@ -84,9 +109,16 @@ async function onSubmit() {
         </footer>
     </form>
 
-    <NotificationError
+    <NotificationInline
+        v-if="success"
+        message="Your configuration has been saved."
+        type="success"
+    />
+    
+    <NotificationInline
         v-if="error"
         :message="error"
+        type="error"
     />
 </template>
 
@@ -115,7 +147,7 @@ async function onSubmit() {
     }
 
     &__header,
-    &__aside,
+    &__control-panel,
     &__preview,
     &__footer {
         padding: var(--padding);
@@ -157,7 +189,7 @@ async function onSubmit() {
         }
     }
 
-    &__aside   {
+    &__control-panel   {
         display: flex;
         flex-direction: column;
         gap: var(--padding);

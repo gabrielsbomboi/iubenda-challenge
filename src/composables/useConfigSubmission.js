@@ -12,6 +12,7 @@ export function useConfigSubmission() {
     const store = useConfigStore()
     const isSubmitting = ref(false)
     const error = ref(null)
+    const success = ref(false)
 
     async function submit() {
         try {
@@ -19,17 +20,17 @@ export function useConfigSubmission() {
 
             const payload = getConfigDiff(store.config, defaultConfig)
 
-            console.log("Actual payload:", payload)
-
             if (Object.keys(payload).length === 0) {
                 return
             }
 
             await axios.post(`${baseUrl}/config`, payload)
+
+            success.value = true
         } catch (err) {
             // Simulate network latency for testing pourposes
             window.setTimeout(() => {
-                error.value = err
+                error.value = err.toString()
                 throw err
             }, 1500)
         } finally {
@@ -41,6 +42,7 @@ export function useConfigSubmission() {
     return {
         error,
         isSubmitting,
-        submit
+        submit,
+        success
     }
 }

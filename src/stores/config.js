@@ -7,7 +7,37 @@ export const useConfigStore = defineStore('config', {
     }),
     actions: {
         resetConfig() {
-            this.config = { ...defaultConfig }
+            this.config = {
+                ...defaultConfig,
+                banner: { ...defaultConfig.banner }
+            }
+        }
+    },
+    getters: {
+        isNonCompliantForItaly: state => {
+            if (!['EU', 'world'].includes(state.config.targetCountries)) {
+                return false
+            }
+
+            const { closeButtonDisplay, closeButtonRejects, rejectButtonDisplay } = state.config.banner
+
+            return (
+                (closeButtonDisplay && !closeButtonRejects) ||
+                (!rejectButtonDisplay && !closeButtonDisplay) ||
+                (rejectButtonDisplay && closeButtonDisplay && !closeButtonRejects)
+            )
+        },
+        isNonCompliantForFrance: state => {
+            return (
+                ['EU', 'world'].includes(state.config.targetCountries) &&
+                state.config.perPurposeConsent === false
+            )
+        },
+        isNonCompliantForItalyAndFrance: state => {
+            return (
+                ['EU', 'world'].includes(state.config.targetCountries) &&
+                state.config.consentByScroll === true
+            )
         }
     }
 })
