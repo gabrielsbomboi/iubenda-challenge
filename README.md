@@ -1,6 +1,6 @@
 # Iubenda Consent Widget
 
-This project is a Vue 3 application implementing the Iubenda consent widget, using Pinia for state management, Sass for styling, Stylelint for CSS/SCSS linting, and ESLint for JavaScript and Vue code quality.
+This project is a Vue 3 application implementing the Iubenda consent widget, using Pinia for state management, Sass for styling, Stylelint for CSS/SCSS linting, and ESLint for JavaScript and Vue code quality. Karma and Jasmine are using for testing.
 
 ## Requirements
 
@@ -52,7 +52,17 @@ npm install
 
 ## Tests
 
+This project uses **Karma** and **Jasmine** to run unit and integration tests on all `.spec.js` files under `tests/`.
 
+Run:
+
+```bash
+# Run once in headless Chrome
+npm run test
+
+# Watch for changes and re-run tests automatically
+npm run test:watch
+```
 
 ## Available Scripts
 
@@ -65,6 +75,7 @@ npm install
 | `npm run lint:js:fix`  | Auto-fix ESLint issues              |
 | `npm run lint:css`     | Run Stylelint on CSS/SCSS/Vue files |
 | `npm run lint:css:fix` | Auto-fix Stylelint issues           |
+| `npm run tests`        | Run Karma tests                     |
 
 ## Start Development
 
@@ -127,7 +138,7 @@ The following stores are defined in `src/stores`:
 
 ## Time Spent & Future Work
 
-I spent approximately **6 hours** building this POC. Given more time, I would consider:
+I spent approximately **6 hours** building this assestment. Given more time, I would consider:
 
 * Enhance the UI’s accessibility and better mobile responsiveness.
 * Integrate a CI pipeline for linting, testing, and deployment.

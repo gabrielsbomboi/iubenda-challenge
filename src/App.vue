@@ -69,6 +69,7 @@ async function onSubmit() {
             <section class="wizard__control-panel">
                 <NotificationInline
                     v-if="complianceMessage"
+                    id="warning-notification"
                     :message="complianceMessage"
                     type="warning"
                 />
@@ -94,12 +95,14 @@ async function onSubmit() {
 
             <div class="wizard__actions">
                 <AppButton
+                    id="reset-btn"
                     :disabled="isSubmitting"
                     label="Reset"
                     @click="onReset"
                 />
 
                 <AppButton
+                    id="save-btn"
                     :disabled="isDirty"
                     :loading="isSubmitting"
                     label="Save"
@@ -109,22 +112,25 @@ async function onSubmit() {
         </footer>
     </form>
 
-    <NotificationInline
-        v-if="success"
-        message="Your configuration has been saved."
-        type="success"
-    />
-    
-    <NotificationInline
-        v-if="error"
-        :message="error"
-        type="error"
-    />
+    <div class="notifications">
+        <NotificationInline
+            v-if="success"
+            id="success-notification"
+            message="Your configuration has been saved."
+            type="success"
+        />
+        
+        <NotificationInline
+            v-if="error"
+            id="error-notification"
+            :message="error"
+            type="error"
+        />
+    </div>
 </template>
 
 <style lang="scss" scoped>
 .wizard {
-    --padding: 1.25rem;
     --border-radius: 1rem;
 
     display: grid;
@@ -133,7 +139,7 @@ async function onSubmit() {
     width: 100%;
     background-color: var(--primary-color);
 
-    @media (min-width: 1025px) {
+    @media (width >= 1025px) {
         border: 0.125rem solid var(--tertiary-color);
         border-radius: 1rem;
 
@@ -150,14 +156,14 @@ async function onSubmit() {
     &__control-panel,
     &__preview,
     &__footer {
-        padding: var(--padding);
+        padding: var(--app-padding);
     }
 
     &__header,
     &__footer {
         background-color: var(--secondary-color);
 
-        @media (max-width: 768px) {
+        @media (width <= 768px) {
             position: sticky;
         }
     }
@@ -173,7 +179,7 @@ async function onSubmit() {
             font-weight: 500;
         }
 
-        @media (max-width: 768px) {
+        @media (width <= 768px) {
             top: 0;
         }
     }
@@ -183,7 +189,7 @@ async function onSubmit() {
         grid-template-rows: 1fr;
         grid-template-columns: 48rem auto;
 
-        @media (max-width: 1280px) {
+        @media (width <= 1280px) {
             grid-template-rows: 1fr 1fr;
             grid-template-columns: 1fr;
         }
@@ -192,14 +198,14 @@ async function onSubmit() {
     &__control-panel   {
         display: flex;
         flex-direction: column;
-        gap: var(--padding);
+        gap: var(--app-padding);
     }
 
     &__preview {
         border: solid var(--secondary-color);
-        border-width: 0.125rem 0 0 0;
+        border-width: 0.125rem 0 0;
 
-        @media (min-width: 1279px) {
+        @media (width >= 1279px) {
             border-width: 0 0 0 0.125rem;
         }
     }
@@ -208,11 +214,7 @@ async function onSubmit() {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: var(--padding);
-
-        @media (max-width: 768px) {
-            bottom: 0;
-        }
+        gap: var(--app-padding);
     }
 
     &__help-link {
@@ -224,7 +226,16 @@ async function onSubmit() {
         align-items: center;
         justify-content: flex-start;
         flex-wrap: wrap;
-        gap: var(--padding);
+        gap: var(--app-padding);
+    }
+}
+
+.notifications {
+    min-width: 32rem;
+    max-width: 100%;
+
+    @media (width <= 1024px) {
+        padding: 0 var(--app-padding) var(--app-padding);
     }
 }
 </style>

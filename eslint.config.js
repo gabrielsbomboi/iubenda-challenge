@@ -1,4 +1,3 @@
-// eslint.config.js
 import js from "@eslint/js"
 import globals from "globals"
 import pluginVue from "eslint-plugin-vue"
@@ -28,6 +27,12 @@ export default defineConfig([
                 closeBracket: 0,
                 alignAttributesVertically: true
             }],
-        }
+        },
+    },
+    {
+        files: ["tests/**/*.spec.js"],
+        languageOptions: {
+            globals: globals.jasmine
+        },
     }
 ])

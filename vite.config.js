@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite'
+import { dirname } from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath } from 'url'
 import path from 'path'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname  = path.dirname(__filename)
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig({
