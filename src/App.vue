@@ -1,10 +1,12 @@
 <script setup>
 // Dependencies
+import { ref, computed } from 'vue'
 import { useConfigStore } from '@/stores/config'
-import { useSubmit } from '@/composables/useSubmit'
+import { useConfigSubmission } from '@/composables/useConfigSubmission'
 
 // Components
 import AppButton from '@/components/AppButton.vue'
+import NotificationError from '@/components/NotificationError.vue'
 import PreviewJson from '@/components/PreviewJson.vue'
 import WidgetConsent from '@/components/WidgetConsent.vue'
 import WidgetLegislation from '@/components/WidgetLegislation.vue'
@@ -12,15 +14,24 @@ import WidgetTargetCountries from '@/components/WidgetTargetCountries.vue'
 
 // Data
 const configStore = useConfigStore()
-const { isSubmitting, submit } = useSubmit()
+const { error, isSubmitting, submit } = useConfigSubmission()
+const lastSavedConfig = ref(JSON.stringify(configStore.config))
+
+// Computed data
+const isDirty = computed(() =>
+    !(JSON.stringify(configStore.config) !== lastSavedConfig.value)
+)
 
 // Methods
 function onReset() {
     configStore.resetConfig()
+    error.value = null
+    lastSavedConfig.value = JSON.stringify(configStore.config)
 }
 
-function onSubmit() {
-    submit(configStore.config)
+async function onSubmit() {
+    await submit(configStore.config)
+    lastSavedConfig.value = JSON.stringify(configStore.config)
 }
 </script>
 
@@ -28,6 +39,7 @@ function onSubmit() {
     <form
         id="wizard"
         class="wizard"
+        @submit.prevent="onSubmit"
     >
         <header class="wizard__header">
             <h1>Configure your Cookie Solution</h1>
@@ -55,19 +67,25 @@ function onSubmit() {
 
             <div class="wizard__actions">
                 <AppButton
-                    :disabled="isSubmitting"
+                    :disabled="isSubmitting || isDirty"
                     label="Reset"
                     @click="onReset"
                 />
 
                 <AppButton
+                    :disabled="isDirty"
                     :loading="isSubmitting"
                     label="Save"
-                    @click="onSubmit"
+                    type="submit"
                 />
             </div>
         </footer>
     </form>
+
+    <NotificationError
+        v-if="error"
+        :message="error"
+    />
 </template>
 
 <style lang="scss" scoped>
@@ -82,7 +100,6 @@ function onSubmit() {
     background-color: var(--primary-color);
 
     @media (min-width: 1025px) {
-        max-width: 1720px;
         border: 0.125rem solid var(--tertiary-color);
         border-radius: 1rem;
 

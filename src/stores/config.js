@@ -6,9 +6,6 @@ export const useConfigStore = defineStore('config', {
         config: { ...defaultConfig }
     }),
     actions: {
-        // updateConfig(newConfig) {
-        //     this.$patch(state => Object.assign(state.config, newConfig))
-        // },
         resetConfig() {
             this.config = { ...defaultConfig }
         }
