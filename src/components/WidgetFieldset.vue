@@ -37,16 +37,13 @@ defineProps({
     }
 
     &__content {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        gap: 1rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-gap: 1.25rem;
 
-        @media (min-width: 1025px) {
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(3, 1fr);
         }
     }
 }

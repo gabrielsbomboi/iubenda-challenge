@@ -8,6 +8,7 @@ import { useConfigSubmission } from '@/composables/useConfigSubmission'
 import AppButton from '@/components/AppButton.vue'
 import NotificationError from '@/components/NotificationError.vue'
 import PreviewJson from '@/components/PreviewJson.vue'
+import WidgetBanner from '@/components/WidgetBanner.vue'
 import WidgetConsent from '@/components/WidgetConsent.vue'
 import WidgetLegislation from '@/components/WidgetLegislation.vue'
 import WidgetTargetCountries from '@/components/WidgetTargetCountries.vue'
@@ -50,6 +51,7 @@ async function onSubmit() {
                 <WidgetTargetCountries :disabled="isSubmitting" />
                 <WidgetLegislation :disabled="isSubmitting" />
                 <WidgetConsent :disabled="isSubmitting" />
+                <WidgetBanner :disabled="isSubmitting" />
             </aside>
 
             <section class="wizard__preview">
@@ -67,7 +69,7 @@ async function onSubmit() {
 
             <div class="wizard__actions">
                 <AppButton
-                    :disabled="isSubmitting || isDirty"
+                    :disabled="isSubmitting"
                     label="Reset"
                     @click="onReset"
                 />
@@ -122,6 +124,10 @@ async function onSubmit() {
     &__header,
     &__footer {
         background-color: var(--secondary-color);
+
+        @media (max-width: 768px) {
+            position: sticky;
+        }
     }
 
     &__header {
@@ -133,6 +139,10 @@ async function onSubmit() {
             margin: 0;
             font-size: 1.25rem;
             font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            top: 0;
         }
     }
 
@@ -167,6 +177,10 @@ async function onSubmit() {
         align-items: center;
         justify-content: space-between;
         gap: var(--padding);
+
+        @media (max-width: 768px) {
+            bottom: 0;
+        }
     }
 
     &__help-link {
