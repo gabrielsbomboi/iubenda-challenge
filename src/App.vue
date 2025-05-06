@@ -112,7 +112,10 @@ async function onSubmit() {
         </footer>
     </form>
 
-    <div class="notifications">
+    <div
+        v-show="success || error"
+        class="notifications"
+    >
         <NotificationInline
             v-if="success"
             id="success-notification"
@@ -231,7 +234,7 @@ async function onSubmit() {
 }
 
 .notifications {
-    min-width: 32rem;
+    width: 32rem;
     max-width: 100%;
 
     @media (width <= 1024px) {

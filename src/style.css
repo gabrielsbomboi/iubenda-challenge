@@ -20,7 +20,7 @@ html {
 }
 
 body {
-    background-color: var(--secondary-color);
+    background-color: #fefefe;
     color: var(--app-font-color);
     font-family: sans-serif;
 }
